@@ -1,0 +1,283 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+  
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #111827; /* Dark background */
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background-color: #1f2937; /* Darker gray background */
+            width: 20%;
+            padding: 20px;
+           
+            align-items: center;
+            color: white;
+            border-radius: 10px; /* Border radius */
+            margin-right: 20px; /* Margin for spacing */
+        }
+
+        .sidebar h2 {
+            text-align: center;
+        }
+
+        .content {
+            background-color: #1f2937; /* Darker gray background */
+            width: 80%;
+            padding: 20px;
+            border-radius: 10px; /* Border radius */
+            margin-left: 20px; /* Margin for spacing */
+        }
+
+        .search-bar {
+            background-color: #374151; /* Lighter gray for contrast */
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            border-radius: 10px; /* Border radius */
+        }
+
+      
+
+        .location {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .weather-info {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+      
+        .table-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .table {
+            background-color: #4b5563;
+            width: 60%;
+            height: 300px;
+            padding: 20px;
+            border-radius: 10px; /* Border radius */
+            margin: 10px; /* Margin for spacing */
+        }
+
+        .chat-widget {
+            background-color: #E74C3C;
+            width: 35%;
+            height: 300px;
+            padding: 20px;
+            border-radius: 10px; /* Border radius */
+            margin: 10px; /* Margin for spacing */
+        }
+
+        .chat-bar {
+            background-color: #3498DB;
+            height: 50px;
+            border-radius: 10px; /* Border radius */
+            margin-bottom: 10px; /* Margin for spacing */
+        }
+
+        .answer-area {
+            background-color: #ECF0F1;
+            height: 250px;
+            border-radius: 10px; /* Border radius */
+            color: black; /* Black text for contrast */
+            padding: 10px;
+        }
+        .section {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .left-info, .right-info {
+            width: 48%; /* Split the container */
+        }
+
+        .left-info h2, .right-info h2 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .left-info p, .right-info p {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .right-info {
+            text-align: right; /* Align the right section's text to the right */
+        }
+
+        .charts {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .weather-widget {
+            background-color: #4b5563; /* Lighter gray for contrast */
+            height: auto;
+            margin-bottom: 20px;
+            width: 100%;
+            padding: 20px;
+            height: 300px;
+            border-radius: 10px; /* Border radius */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .chart {
+            background-color: #374151; /* Even lighter gray */
+            width: 100%;
+            height: 300px;
+            padding: 10px;
+            border-radius: 10px; /* Border radius */
+            margin: 0px 10px 20px 10px; /* Margin for spacing */
+            text-align: center;
+        }
+        .V-bar-chart {
+            background-color: #374151; /* Even lighter gray */
+            width: 100%;
+            height: 300px;
+            padding: 10px;
+            align-content: center;
+            align-items: center;
+            align-self: center;
+            border-radius: 10px; /* Border radius */
+            /* Margin for spacing */
+            text-align: center;
+
+        }
+
+        .user-profile {
+            background-color: #8E44AD;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            align-content: center;
+            align-items: center;
+            border-radius: 50%;
+            margin: 0 10px;
+        }
+        .weather-widget {
+    position: relative; /* Make sure the video is positioned relative to this div */
+    overflow: hidden; /* Prevents any overflow */
+}
+
+.background-video {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    z-index: 0; 
+}
+
+.weather-info, .location {
+    position: relative; 
+    z-index: 1; 
+    color: white; 
+}
+
+
+        .col-1 {
+             width: 65%; 
+            }
+        .col-2 {
+            width: 35%;
+             display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dashboard Page -->
+    <div class="container">
+        <div class="sidebar" >
+            <h2>Weather App</h2>
+            <button  onclick="window.location.href='app.html'" style=" background-color:transparent; border: none; color: white; font-family: Poppins; font-size:20px; margin:   30px 0px 15px 0px; text-align: center; display: block; align-content: center;">DASHBOARD</p>
+            <button onclick="window.location.href='table.html'" style="background-color:transparent; border: none; color: white; font-family: Poppins; font-size:20px; margin:   30px 0px 15px 0px; text-align: center;">TABLES</p>
+        </div>
+        <div class="content">
+            <div class="search-bar">
+                <input type="text" id="city" placeholder="Search City..." style="width: 90%; padding: 10px; border-radius: 10px; border: none;" width="70%">
+                <button onclick="getWeather()" style="width: 15%; border-radius: 20px; background-color: #3498DB; border: none; margin: 0px 10px  0px 10px; font-family: Poppins; color: white;">Get Weather</button>
+                <div class="user-profile">Z</div>
+            </div>
+
+            <div class="section">
+            <div class="col-1">
+                <div class="weather-widget" id="weather-widget">
+                    <video autoplay loop muted class="background-video">
+                        <source src="" type="video/mp4"  >
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="location" id="location"></div>
+                    <div class="weather-info">
+                        <div class="left-info">
+                            <h2 id="main-weather"></h2>
+                            <p id="description"></p>
+                            <p id="coords"></p>
+                            <p><strong>Wind</strong></p>
+                            <p id="wind-speed"></p>
+                            <p id="wind-deg"></p>
+                        </div>
+                        <div class="right-info">
+                            <h2 id="temp"></h2>
+                            <p id="min-max-temp"></p>
+                            <p id="humidity"></p>
+                            <p id="visibility"></p>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="V-bar-chart">
+                    <canvas id="tempChart" width="400" height="200" ></canvas>
+                </div>
+            </div>
+                
+
+            <div class="col-2">
+                <div class="chart"> <canvas id="weatherDoughnut"></canvas></div>
+                <div class="chart"><canvas id="tempLineChart"></canvas></div>
+            </div>
+
+        </div>
+        </div>
+    </div>
+
+    <script src="app.js">
+        
+    </script>
+
+</body>
+</html>

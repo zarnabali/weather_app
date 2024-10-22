@@ -1,0 +1,92 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #1e293b;
+    color: #f1f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    width: 80%;
+    max-width: 1200px;
+}
+
+.weather-widget {
+    grid-column: span 2; /* Spans 2 columns */
+    grid-row: 1; /* First row */
+    background-color: #4b5563;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.vertical-bar-chart {
+    grid-column: span 2; /* Spans 2 columns */
+    grid-row: 2; /* Second row */
+    background-color: #4b5563;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.charts {
+    grid-column: 3; /* Third column */
+    grid-row: span 2; /* Spans both rows 1 and 2 */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.doughnut-chart, .line-chart {
+    background-color: #4b5563;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.doughnut-chart {
+    flex: 1; /* Takes half the space */
+}
+
+.line-chart {
+    flex: 1; /* Takes half the space */
+}
+
+/* General styling for the text */
+.weather-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-info, .right-info {
+    width: 48%; /* Split the space evenly */
+}
+
+.left-info h2, .right-info h2 {
+    font-size: 2em;
+    margin-bottom: 5px;
+}
+
+.left-info p, .right-info p {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.right-info {
+    text-align: right; /* Align the right section's text to the right */
+}
